@@ -9,9 +9,28 @@ console.log(currentDayDisplay);
 $("#currentDay").text(currentDayDisplay);
 
 // Each time-block will need to be linked to current time so that the display can toggle between past, present, future
-// If currentTime == true && < startTime, toggle to past
-// If currentTime == true, toggle to present
-// If currentTime == true && > startTime, toggle to future
+
+let currentHour = m.format("hA");
+
+console.log(currentHour);
+
+
+
+// function updateTimeblock() {
+// // Toggle class to past
+//     if(moment().isBefore($("#hourBlock").text)) {
+//         $("#hour").toggleclass("future");
+// // Toggle class to present
+//     } else if(moment().isSame($("#hourBlock").text)) {
+//         $("#hour").toggleclass("present");
+// // Toggle class to future
+//     } else if(moment().isAfter($("#hourBlock").text)) {
+//         $("#hour").toggleclass("past");
+//     }
+// };
+
+// updateTimeblock();
+
 
 // Problem 2: user input field
 
