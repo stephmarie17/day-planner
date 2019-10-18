@@ -78,10 +78,6 @@ body {
     border-top: 1px solid white;
   }
 
-  .hide {
-    display: none;
-  }
-  
   .saveBtn {
     border-left: 1px solid black;
     border-top-right-radius: 15px;

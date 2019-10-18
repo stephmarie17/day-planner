@@ -8,12 +8,13 @@ console.log(currentDayDisplay);
 // To display time at top of page, use moment
 $("#currentDay").text(currentDayDisplay);
 
-// Each time-block will need to be linked to current time so that the display can toggle between past, present, future
+// Each time-block will need to be linked to current hour so that the display can toggle between past, present, future
 
 let currentHour = m.format("hA");
 
 console.log(currentHour);
 
+// Set hours of each timeblock to a moment object
 var nine = m.hour(9).format("hA");
 $("#slotOne").text(nine);
 var ten = m.hour(10).format("hA");
@@ -33,12 +34,30 @@ $("#slotEight").text(four);
 var five = m.hour(17).format("hA");
 $("#slotNine").text(five);
 
-// Problem 2: user input field
+// Toggle display feature using toggleClass
 
-// Each time block will have a text area where the user can enter text
+// Problem 2: user input field & local storage
 
-// Don't forget event.preventdefault()
 
-// Problem 3: save button
+var agendaItems = [];
 
+function initializeAgenda() {
+    var storedAgendaItems = JSON.parse(localStorage.getItem("agendaItems"));
+
+    if (storedAgendaItems !== null) {
+        agendaItems = storedAgendaItems;
+    };
+
+    
+}
+
+$("button").on("click", function(event) {
+    event.preventDefault();
+    var inputAgenda = $("#agenda").val();
+    console.log(inputAgenda);
+
+    agendaItems.push(inputAgenda);
+    localStorage.setItem("agendaItems", JSON.stringify(agendaItems));
+});
 // When a user enters info into input field and clicks the save button, this triggers storing the time and input in localStorage
+
