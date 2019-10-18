@@ -48,6 +48,7 @@ body {
     color: #000000;
     border-top: 1px dashed #000000;
     text-align: right;
+    padding: 5px;
   }
 
   .agenda {
