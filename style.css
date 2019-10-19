@@ -67,13 +67,13 @@ body {
   }
   
   .present {
-    background-color: #ff6961;
+    background-color: #e46962;
     color: white;
     border-top: 1px solid white;
   }
   
   .future {
-    background-color: #77dd77;
+    background-color: #93d493;
     color: white;
     border-top: 1px solid white;
   }
@@ -82,7 +82,7 @@ body {
     border-left: 1px solid black;
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
-    background-color: #06AED5;
+    background-color: rgb(79, 162, 180);
     color: white;
   }
   
