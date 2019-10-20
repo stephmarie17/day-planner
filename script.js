@@ -36,30 +36,27 @@ $("#slot-17").text(five);
 
 // Toggle display feature 
 
-var agendaDisplay  = $(".agenda-text");
-
 // Problem 2: user input field & local storage
 
 var agendaItems = [];
 
 function initializeAgenda() {
 
-    $("div .hour").each(function (i){
+    $("div .hour").each(function (){
         var hourChoices = parseInt($(this).attr("id").split("-")[1]);
         console.log(hourChoices); 
-            if (hourChoices[i] < currentHour) {
-                agendaDisplay.removeClass("present")
-                agendaDisplay.removeClass("future");
-                agendaDisplay.addClass("past");
-        
-            } else if (hourChoices[i] == currentHour) {
-                agendaDisplay.removeClass("past");
-                agendaDisplay.removeClass("future");
-                agendaDisplay.addClass("present");
+            if (hourChoices < currentHour) {
+                $(this).addClass("past");
+                $(this).removeClass("present", "future");
+                console.log("This is past" + hourChoices);
+            } else if (hourChoices === currentHour) {
+                $(this).addClass("present");
+                $(this).removeClass("past", "future");
+                console.log("This is present" + hourChoices);
             } else {
-                agendaDisplay.removeClass("present");
-                agendaDisplay.removeClass("past");
-                agendaDisplay.addClass("future");
+                $(this).addClass("future");
+                $(this).removeClass("past", "present");
+                console.log("This is past" + hourChoices);
             };
     })
 
@@ -73,20 +70,14 @@ function initializeAgenda() {
 $("button").on("click", function(event) {
     event.preventDefault();
 
-    if (inputAgenda == undefined || "") {
-        return;
-    } else {
-        var inputAgenda = $("textarea").siblings().val();
+        var inputAgenda = $("textarea.agenda").val();
         console.log(inputAgenda);
     
         agendaItems.push(inputAgenda);
-    
-        localStorage.setItem("agendaItems", JSON.stringify(agendaItems));
-    
-        inputAgenda.append(agendaItems);
-    }
-    
 
+        localStorage.setItem("agendaItems", JSON.stringify(agendaItems));
+
+        $("agenda-text").append(agendaItems);
 });
 
 initializeAgenda();
