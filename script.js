@@ -1,20 +1,19 @@
-// Problem 1: the date and time
+// Sets current date and current time
 let m = moment();
 
 var currentDayDisplay = m.format("dddd, MMMM, Do YYYY");
 
 console.log(currentDayDisplay);
 
-// To display time at top of page, use moment
 $("#currentDay").text(currentDayDisplay);
 
-// Each time-block will need to be linked to current hour so that the display can toggle between past, present, future
-
 let currentHour = m.hours();
-
 console.log(currentHour);
 
-// Set hours of each timeblock to a moment object
+// Empty array to store values entered in textarea input by user
+var agendaItems = [];
+
+// Set hours of each timeblock to a moment object and displays in designated format
 var nine = m.hour(9).format("hA");
 $("#slot-9").text(nine);
 var ten = m.hour(10).format("hA");
@@ -36,10 +35,6 @@ $("#slot-17").text(five);
 
 // Toggle display feature 
 
-// Problem 2: user input field & local storage
-
-var agendaItems = [];
-
 function initializeAgenda() {
 
     $("div .hour").each(function (){
@@ -60,6 +55,7 @@ function initializeAgenda() {
             };
     })
 
+// Gets items from localStorage on initialization
     var storedAgendaItems = JSON.parse(localStorage.getItem("agendaItems"));
 
     if (storedAgendaItems !== null) {
@@ -67,20 +63,30 @@ function initializeAgenda() {
     };
 };
 
+// Save button event listener to push entered text into an array and display the value after storing in local storage
 $("button").on("click", function(event) {
     event.preventDefault();
 
-        var inputAgenda = $("textarea.agenda").val();
-        console.log(inputAgenda);
+    // Code to create an area to write the entered value
+    var textEl = $("<p>");
+    textEl.text(inputAgenda);
+    $(this).append(textEl);
+
+    // Code to push input of agenda into array if the input is NOT equal to an empty string
+    if(inputAgenda !== "") {
+        var inputAgenda = $(".agenda").val();
     
         agendaItems.push(inputAgenda);
-
+    
         localStorage.setItem("agendaItems", JSON.stringify(agendaItems));
+    // This code writes to the page - commented out because it is currently displaying the whole array in each div instead of just the one entered
+        // $(".agenda-text").text(agendaItems);
+        // $(".agenda-text").append(agendaItems[i]);
 
-        $("agenda-text").append(agendaItems);
+    } else return;
 });
 
 initializeAgenda();
 
-// When a user enters info into input field and clicks the save button, this triggers storing the time and input in localStorage
+
 
