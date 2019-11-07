@@ -3,12 +3,9 @@ let m = moment();
 
 var currentDayDisplay = m.format("dddd, MMMM, Do YYYY");
 
-console.log(currentDayDisplay);
-
 $("#currentDay").text(currentDayDisplay);
 
 let currentHour = m.hours();
-console.log(currentHour);
 
 // Empty array to store values entered in textarea input by user
 var agendaItems = [];
@@ -35,58 +32,58 @@ $("#slot-17").text(five);
 
 // Toggle display feature 
 
+initializeAgenda();
+
 function initializeAgenda() {
 
     $("div .hour").each(function (){
         var hourChoices = parseInt($(this).attr("id").split("-")[1]);
-        console.log(hourChoices); 
             if (hourChoices < currentHour) {
                 $(this).addClass("past");
                 $(this).removeClass("present", "future");
-                console.log("This is past" + hourChoices);
             } else if (hourChoices === currentHour) {
                 $(this).addClass("present");
                 $(this).removeClass("past", "future");
-                console.log("This is present" + hourChoices);
             } else {
                 $(this).addClass("future");
                 $(this).removeClass("past", "present");
-                console.log("This is past" + hourChoices);
             };
     })
 
 // Gets items from localStorage on initialization
     var storedAgendaItems = JSON.parse(localStorage.getItem("agendaItems"));
 
-    if (storedAgendaItems !== null) {
+    if (storedAgendaItems !== "") {
         agendaItems = storedAgendaItems;
     };
 };
 
+function agendaSet(){
+        event.preventDefault();
+    
+        // Code to create an area to write the entered value
+        var textEl = $("<p>");
+        textEl.text(inputAgenda);
+        $(".agenda-text").append(textEl);
+    
+        // Code to push input of agenda into array if the input is NOT equal to an empty string
+        if(inputAgenda !== "") {
+            for (var i = 0; i < agendaItems.length; i++) {
+                var inputAgenda = $(".agenda").val();
+        
+                agendaItems.push(inputAgenda);
+            
+                localStorage.setItem("agendaItems", JSON.stringify(agendaItems));
+                $(".agenda-text").text(agendaItems);
+                $(".agenda-text").html(agendaItems[i]);
+            }
+        } else return;
+ };
+
+
 // Save button event listener to push entered text into an array and display the value after storing in local storage
-$("button").on("click", function(event) {
-    event.preventDefault();
+$("button").on("click", agendaSet());
 
-    // Code to create an area to write the entered value
-    var textEl = $("<p>");
-    textEl.text(inputAgenda);
-    $(this).append(textEl);
-
-    // Code to push input of agenda into array if the input is NOT equal to an empty string
-    if(inputAgenda !== "") {
-        var inputAgenda = $(".agenda").val();
-    
-        agendaItems.push(inputAgenda);
-    
-        localStorage.setItem("agendaItems", JSON.stringify(agendaItems));
-    // This code writes to the page - commented out because it is currently displaying the whole array in each div instead of just the one entered
-        // $(".agenda-text").text(agendaItems);
-        // $(".agenda-text").append(agendaItems[i]);
-
-    } else return;
-});
-
-initializeAgenda();
 
 
 
